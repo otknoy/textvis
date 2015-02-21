@@ -5,8 +5,7 @@
     <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
     <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
     <link rel="import" href="bower_components/core-icons/core-icons.html">
-    <link rel="import" href="elements/my-element.html">
-    <link rel="import" href="elements/my-table.html">
+    <link rel="import" href="bower_components/google-chart/google-chart.html">
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body fullbleed>
@@ -17,9 +16,11 @@
       <paper-icon-button icon="search"></paper-icon-button>
     </core-toolbar>
 
-    <my-table></my-table>
-
-    <my-element></my-element>
+    <google-chart type='pie'
+		  options='{"title": "Distribution of days in 2001Q1"}'
+		  cols='[{"label":"Month", "type":"string"}, {"label":"Days", "type":"number"}]'
+		  rows='[["Jan", 31],["Feb", 28],["Mar", 31]]'>
+    </google-chart>
 
   </body>
 </html>
