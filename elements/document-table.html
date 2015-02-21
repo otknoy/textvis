@@ -1,0 +1,21 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/sortable-table/sortable-table.html">
+
+<polymer-element name="document-table">
+  <template>
+    <span>Hello from <b>my-element</b>. This is my Shadow DOM.</span>
+
+    <sortable-table columns="{{columns}}" data="{{data}}" checkbox>
+
+    </sortable-table>
+
+  </template>
+  <script>
+   Polymer('document-table', {
+     columns: ['hoge', 'A', 'B', 'C'],
+     data: [['apple', 4, 2, 5],
+	    ['banana', 0, 4, 1],
+	    ['orange', 1, 3, 2]]
+   });
+  </script>
+</polymer-element>
