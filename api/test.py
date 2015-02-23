@@ -11,7 +11,14 @@ def tokenize():
     text = request.forms.get('text')
     text = nlp.preprocess.normalize(text.decode('utf-8'))
     terms = nlp.preprocess.tokenize(text)
-    return '|||'.join(terms).encode('utf-8')
-    # return json.dumps(terms)
+    return json.dumps(terms, ensure_ascii=False)
+
+@route('/test')
+def test():
+    text = '本日は晴天なり'
+    text = nlp.preprocess.normalize(text.decode('utf-8'))
+    terms = nlp.preprocess.tokenize(text)
+    return json.dumps(terms, ensure_ascii=False)
+
 
 run(host='localhost', port=8888, debug=True, reloader=True)
