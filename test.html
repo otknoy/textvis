@@ -6,9 +6,50 @@
   </head>
   <body>
 
-    <form action="http://localhost:8888/tokenize" method="post">
-      <input name="text" type="text">
-      <input type="submit" value="submit">
-    </form>
+    <h1>text</h1>
+    <div id="text">山下さんと山下君が山下公園へ行った。</div>
+
+    <h1>terms</h1>
+    <div id="terms"></div>
+
+    <h1>tf</h1>
+    <div id="tf"></div>
+
+    <script>
+     var load = function(uri) {
+       var dfd = Promise.defer();
+
+       var xhr = new XMLHttpRequest();
+       xhr.onload = function() {
+	 dfd.resolve(xhr.responseText);
+       };
+
+       xhr.open("GET", uri, true);
+       xhr.send(null);
+
+       return dfd.promise;
+     };
+
+
+     var baseUri = "http://localhost:8888";
+
+     var text = document.getElementById("text").innerText;
+     console.log(text);
+
+     var tokenizeUri = baseUri + "/tokenize?text=" + text;
+     console.log(tokenizeUri);
+     load(tokenizeUri).then(function(terms) {
+       console.log(terms);
+       document.getElementById("terms").innerText = terms;
+
+       var tfUri = baseUri + "/tf?terms=" + terms;
+       load(tfUri).then(function(tf) {
+	 console.log(tf);
+	 document.getElementById("tf").innerText = tf;
+       });
+     });
+
+    </script>
+
   </body>
 </html>
