@@ -21,13 +21,13 @@ def tokenize():
 @route('/tf')
 def tf():
     terms = json.loads(request.query.get('terms'))
-    tf = term_frequency(terms, normalize=True)
+    tf = term_frequency(terms)
     return json.dumps(tf, ensure_ascii=False)
 
 @route('/tfidf')
 def tfidf():
     docs = json.loads(request.query.get('docs'))
-    tfidf_list = tfidf(docs, normalize=True);
+    tfidf_list = tfidf(docs);
     return json.dumps(tfidf_list, ensure_ascii=False)
 
 
