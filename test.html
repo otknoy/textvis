@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <!-- <script src="js/test.js"></script> -->
     <!-- <link rel="stylesheet" href="css/app.css"> -->
   </head>
   <body>
 
     <h1>text</h1>
-    <div id="text">山下さんと山下君が山下公園へ行った。</div>
+    <textarea id="text" rows"4" cols="40"></textarea>
+    <button id="analyze-button" onclick="analyze();">analyze</button>
 
     <h1>terms</h1>
     <div id="terms"></div>
@@ -33,22 +35,23 @@
 
      var baseUri = "http://localhost:8888";
 
-     var text = document.getElementById("text").innerText;
-     console.log(text);
+     var analyze = function() {
+       var text = document.getElementById("text").value;
+       console.log(text);
 
-     var tokenizeUri = baseUri + "/tokenize?text=" + text;
-     console.log(tokenizeUri);
-     load(tokenizeUri).then(function(terms) {
-       console.log(terms);
-       document.getElementById("terms").innerText = terms;
+       var tokenizeUri = baseUri + "/tokenize?text=" + text;
+       console.log(tokenizeUri);
+       load(tokenizeUri).then(function(terms) {
+	 console.log(terms);
+	 document.getElementById("terms").innerText = terms;
 
-       var tfUri = baseUri + "/tf?terms=" + terms;
-       load(tfUri).then(function(tf) {
-	 console.log(tf);
-	 document.getElementById("tf").innerText = tf;
+	 var tfUri = baseUri + "/tf?terms=" + terms;
+	 load(tfUri).then(function(tf) {
+	   console.log(tf);
+	   document.getElementById("tf").innerText = tf;
+	 });
        });
-     });
-
+     };
     </script>
 
   </body>
