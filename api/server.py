@@ -4,21 +4,27 @@ from bottle import route, request, run
 import json
 
 import nlp.preprocess
+from nlp.vector_space_model import term_frequency, tf_idf
 
 
-@route('/tokenize', method='POST')
+@route('/tokenize')
 def tokenize():
-    text = request.forms.get('text')
+    text = request.query.get('text')
     text = nlp.preprocess.normalize(text.decode('utf-8'))
     terms = nlp.preprocess.tokenize(text)
     return json.dumps(terms, ensure_ascii=False)
 
-@route('/test')
-def test():
-    text = '本日は晴天なり'
-    text = nlp.preprocess.normalize(text.decode('utf-8'))
-    terms = nlp.preprocess.tokenize(text)
-    return json.dumps(terms, ensure_ascii=False)
+@route('/tf')
+def tf():
+    terms = json.loads(request.query.get('terms'))
+    tf = term_frequency(terms, normalize=True)
+    return json.dumps(tf, ensure_ascii=False)
+
+@route('/tfidf')
+def tfidf():
+    docs = json.loads(request.query.get('docs'))
+    tfidf_list = tfidf(docs, normalize=True);
+    return json.dumps(tfidf_list, ensure_ascii=False)
 
 
 run(host='localhost', port=8888, debug=True, reloader=True)
