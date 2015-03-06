@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
-from bottle import route, request, run
+from bottle import hook, response, route, request, run
 import json
 
 import nlp.preprocess
 from nlp.vector_space_model import term_frequency, tf_idf
 
+
+@hook('after_request')
+def enable_cors():
+    response.headers['Access-Control-Allow-Origin'] = '*'
 
 @route('/tokenize')
 def tokenize():
